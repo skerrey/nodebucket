@@ -23,7 +23,7 @@ const taskAPI = require('./routes/task-routes');
 const app = express(); // Express variable.
 
 // API
-app.use('/api/employees', employeeAPI); // shortened URI
+app.use('/api', employeeAPI);
 app.use('/api/employees', taskAPI);
 
 
@@ -40,7 +40,7 @@ const options = {
 };
 
 const openapiSpecification = swaggerJsdoc(options);
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
 /**
  * App configurations.
@@ -49,7 +49,7 @@ app.use(express.json());
 app.use(express.urlencoded({'extended': true}));
 app.use(express.static(path.join(__dirname, '../dist/nodebucket')));
 app.use('/', express.static(path.join(__dirname, '../dist/nodebucket')));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+
 
 
 // default server port value.

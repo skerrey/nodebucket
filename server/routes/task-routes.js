@@ -78,7 +78,6 @@ router.get("/:empId/tasks", async(req, res) => {
 
 // createTask (from kerrey-node-shopper-routes.js)
 router.post("/:empId/tasks", async(req, res) => {
-
   try {
     Employee.findOne({ "empId": req.params.empId }, function(err, emp) {
       if (err) {
@@ -93,11 +92,18 @@ router.post("/:empId/tasks", async(req, res) => {
         })
 
         const newTask = {
-          task: req.body.task
+          text: req.body.text
         }
 
-        emp.tasks.push(newTask);
-        emp.save();
+        emp.todo.push(newTask);
+        emp.save(function (err, updatedEmp) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(updatedEmp);
+            res.json(updatedEmp)
+          }
+        });
       }
     });
   } catch (e) {

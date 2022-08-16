@@ -14,7 +14,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let taskSchema = new Schema({ // Task Schema
-  task: {type: String}
+  text: {type: String}
 });
 
 let employeeSchema = new Schema({ // Employee Schema
