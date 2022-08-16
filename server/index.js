@@ -23,7 +23,7 @@ const taskAPI = require('./routes/task-routes');
 const app = express(); // Express variable.
 
 // API
-app.use('/api', employeeAPI);
+app.use('/api', employeeAPI); // shortened URI
 app.use('/api/employees', taskAPI);
 
 
