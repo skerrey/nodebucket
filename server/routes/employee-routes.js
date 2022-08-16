@@ -14,6 +14,32 @@ const express = require('express');
 const router = express.Router();
 const Employee = require('../models/employee');
 
+
+/**
+ * findEmployeeById
+ * @openapi
+ * /api/employees/{empId}:
+ *  get:
+ *    tags:
+ *      - Employees
+ *    description: API for returning a single employee object from MongoDB
+ *    summary: Returns an employee document
+ *    parameters:
+ *      -   name: empId
+ *          in: path
+ *          required: true
+ *          description: The empId requested by the user.
+ *          schema:
+ *            type: string
+ *    responses:
+ *      "200":
+ *        description: Composer Documents
+ *      "500":
+ *        description: Server Exception
+ *      "501":
+ *        description: MongoDB Exception
+ */
+
 // findEmployeeById
 router.get('/employees/:empId', async(req, res) => {
   try {
@@ -25,7 +51,9 @@ router.get('/employees/:empId', async(req, res) => {
         })
       } else {
         console.log(emp);
-        res.json(emp);
+        res.status(200).send({
+          emp
+        })
       }
     })
   } catch (e) {
