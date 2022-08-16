@@ -1,0 +1,61 @@
+<!--
+============================================
+; Title: nodebucket
+; Author: Professor Krasso
+; Date: 21 August 2022
+; Modified By: Seth Kerrey
+; Description: nodebucket contact component
+; Code Attribution: Additional code from buwebdev
+;===========================================
+-->
+
+<div fxLayout="column">
+
+    <mat-card class="mat-elevation-z8">
+
+      <mat-card-title style="text-align:center;margin-bottom:100px;">Contact</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-content>
+
+        <div fxLayout="row" class="div-row">
+
+          <div fxLayout="column" class="div-column">
+            <mat-icon class="icon-display">location_on</mat-icon>
+            <br><br>
+            <div class="div-text">
+              Hufflepuff Commons
+              <br>
+              Password: <span style="font-style:italic;color:#ecb939;">Helga Hufflepuff</span>
+            </div>
+          </div>
+
+          <div fxLayout="column" class="div-column">
+            <mat-icon class="icon-display">phone</mat-icon>
+            <div class="div-text">
+              <br><br>
+              Direct: <span style="color:#ecb939;">444-444-4444</span>
+              <br>
+              Toll-free: 1800-444-4444
+            </div>
+          </div>
+
+        </div>
+
+        <div class="div-column-lower">
+          <mat-icon class="icon-display-owl" svgIcon="owl"></mat-icon>
+          <br><br>
+          <div class="div-text">
+            <span style="color:#ecb939;">521 Diagon Alley</span>
+            <br>
+            Hogwarts, Britain
+          </div>
+        </div>
+
+        <div class="div-text" style="margin-top:100px;">
+          Visit us <span routerLink="/" style="color:#ecb939;cursor: pointer;">online</span> or at one of our many locations throughout the Hogwarts Metro Area
+          <!-- hogwarts image from https://harrypotter.fandom.com/wiki/Hogwarts_School_of_Witchcraft_and_Wizardry -->
+          <img src="assets/hogwarts_60x60.png" alt="">
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>

@@ -1,3 +1,14 @@
+<!--
+============================================
+; Title: nodebucket
+; Author: Professor Krasso
+; Date: 21 August 2022
+; Modified By: Seth Kerrey
+; Description: nodebucket base layout component
+; Code Attribution: Additional code from buwebdev
+;===========================================
+-->
+
 <div fxLayout="column">
 
   <!-- navigation -->
@@ -8,18 +19,64 @@
         <!-- logo -->
         <button class="logo" routerLink="/" mat-button>nodebucket</button>
 
-        <button class="navbar-link" routerLink="/" mat-button>Home</button>
-        <button class="navbar-link" mat-button>About</button>
+          <button class="navbar-link" routerLink="/" mat-button>Home</button>
+          <button class="navbar-link" routerLink = "/about" mat-button>About</button>
+          <button class="navbar-link" routerLink = "/contact" mat-button>Contact</button>
+          <button class="navbar-link" mat-button (click)="signOut()">Sign Out</button>
+
       </div>
 
     </mat-toolbar>
   </nav>
 
-  <!-- main content -->
-  <div fxFlex>
-    <main class="main-content" fxFlex="100%;">
-      <router-outlet></router-outlet>
-    </main>
+  <!-- Main content -->
+  <div fxLayout="row" style="padding:15px;">
+
+    <!-- Left container -->
+    <div fxFlex="10">
+      <div class="left-container">
+
+        <!-- image from https://harrypotter.fandom.com/wiki/Hufflepuff -->
+        <img class="img-fluid" src="/assets/hufflepuff_logo_125x139.png" alt="hufflepuff logo">
+        <br><br>
+
+        <div class="toolbar-left">Workspace</div>
+          <button mat-button>
+            <mat-icon>laptop</mat-icon>
+          </button>
+
+          <div class="toolbar-left">Members</div>
+          <button mat-button>
+            <mat-icon>person</mat-icon>
+          </button>
+          <button mat-button>
+            <mat-icon>person</mat-icon>
+          </button>
+          <button mat-button>
+            <mat-icon>person_add</mat-icon>
+          </button>
+
+          <div class="toolbar-left">Settings</div>
+          <button mat-button>
+            <mat-icon>settings</mat-icon>
+          </button>
+      </div>
+    </div>
+
+    <!-- Main container -->
+    <div fxFlex="80" style="padding:0 15px">
+      <main class="main-container">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+
+    <!-- Right container -->
+    <div fxFlex="10">
+      <div class="right-container">
+        <h2 style="text-align:center;">Quick Links</h2>
+      </div>
+    </div>
+
   </div>
 
   <!-- footer -->

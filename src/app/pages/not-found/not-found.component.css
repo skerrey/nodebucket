@@ -1,0 +1,89 @@
+/*
+============================================
+; Title: nodebucket
+; Author: Professor Krasso
+; Date: 21 August 2022
+; Modified By: Seth Kerrey
+; Description: nodebucket not-found component styling
+; Code Attribution: Additional code from buwebdev
+;   button design from getcssscan by Pintura (pqina) - button 62 [ref:A]
+;     https://getcssscan.com/css-buttons-examples
+;===========================================
+*/
+
+.div-top {
+  padding: 15px;
+  font-size: 25px;
+  background-color: silver;;
+}
+
+.div-bottom {
+  padding-top: 15px;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: silver;
+  text-align: center;
+  font-style: italic;
+}
+.div-text {
+  font-weight: 400;
+  font-size: 25px;
+  text-align: center;
+}
+
+.div-column {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.body {
+  background-color: silver;
+}
+
+.div-image {
+  display: block;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+/* [ref:A] */
+.home-button {
+  margin: auto;
+  background: #ecb939;
+  border: 0;
+  border-radius: 12px;
+  color: black;
+  cursor: pointer;
+  display: block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 3rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.home-button:not([disabled]):focus {
+  box-shadow: 0 0 .25rem silver, -.125rem -.125rem 1rem silver, .125rem .125rem 1rem silver;
+}
+
+.home-button:not([disabled]):hover {
+  box-shadow: 0 0 .25rem silver, -.125rem -.125rem 1rem silver, .125rem .125rem 1rem silver;
+}
+
+/* [/ref:A] */
+
+

@@ -1,0 +1,43 @@
+/*
+============================================
+; Title: nodebucket
+; Author: Professor Krasso
+; Date: 21 August 2022
+; Modified By: Seth Kerrey
+; Description: nodebucket contact component styling
+; Code Attribution: Additional code from buwebdev
+;===========================================
+*/
+
+.icon-display {
+  transform:scale(3);
+}
+
+.icon-display-owl {
+  transform:scale(4);
+  margin-top: 50px;
+}
+
+.icon-display, .icon-display-owl {
+  width: 100%;
+}
+
+.div-row {
+  text-align: center;
+  width: 800px;
+  margin: auto;
+}
+
+.div-column {
+  display: flex;
+  width: 50%;
+}
+
+.div-column-lower {
+  margin-top: 50px;
+}
+
+.div-text {
+  text-align: center;
+  font-size: 16px;
+}

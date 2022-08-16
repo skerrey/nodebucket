@@ -1,0 +1,74 @@
+<!--
+============================================
+; Title: nodebucket
+; Author: Professor Krasso
+; Date: 21 August 2022
+; Modified By: Seth Kerrey
+; Description: nodebucket base layout component
+; Code Attribution: Additional code from buwebdev
+;   show/hide button from StackOverflow by Pullat Junaid [ref:A]
+;     https://stackoverflow.com/questions/47528880/how-to-toggle-show-hide-element-in-angular-4
+;   box border design from CodePen by Swarup Kumar Kulia [ref:B]
+;     https://codepen.io/uiswarup/pen/RBByzW
+;===========================================
+-->
+
+<!-- [ref:B] -->
+<div class="box">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+
+  <div class="content">
+  <!-- /[ref:B] -->
+    <div fxLayout="column">
+
+      <div fxFlex>
+        <mat-card class="mat-elevation-z8 signin-container">
+
+          <mat-card-title>
+            Nodebucket Sign In
+          </mat-card-title>
+
+          <img class="img-fluid" src="/assets/hufflepuff_logo_51x57.png"><!-- image from https://harrypotter.fandom.com/wiki/Hufflepuff -->
+
+          <mat-card-subtitle>
+            <!-- [ref:A] -->
+            <button mat-button (click)="showHint=!showHint">Show Hint</button>
+            <div *ngIf="showHint">
+              Try an employee ID: 1007, 1008, 1009, 1010, 1011
+            </div>
+            <!-- /[ref:A] -->
+          </mat-card-subtitle>
+
+          <mat-card-content>
+
+            <div class="msg-error" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+
+            <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
+              <form [formGroup]="signinForm" (ngSubmit)="onSubmit(); signinForm.reset()">
+
+                <mat-card-content>
+                  <mat-form-field fxFlex appearance="fill">
+                    <mat-label for="txtEmpId" id="lblEmpId" >Password</mat-label>
+                    <input type="password" required matInput formControlName="empId" id="txtEmpId" name="txtEmpId" />
+                  </mat-form-field>
+                </mat-card-content>
+
+                <mat-card-actions>
+                  <button id="submit" type="submit" fxFlex mat-raised-button>Submit</button>
+                </mat-card-actions>
+
+              </form>
+            </mat-card>
+
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+  </div>

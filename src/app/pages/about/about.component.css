@@ -1,0 +1,92 @@
+/**
+============================================
+; Title: nodebucket
+; Author: Professor Krasso
+; Date: 21 August 2022
+; Modified By: Seth Kerrey
+; Description: nodebucket about component styling
+; Code Attribution: Additional code from buwebdev
+;===========================================
+*/
+
+.text-enhance {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.div-row {
+  margin: auto;
+  width: 800px;
+  padding-bottom: 70px;
+}
+
+
+/* Top row ------------------------------------- */
+.div-column-left {
+  position: relative;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 30px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-right: 50px;
+  line-height: 35px;
+}
+
+.div-column-left:before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 3px solid #ecb939;
+}
+
+/* Middle row ------------------------------------- */
+.div-column-right-reverse {
+  width: 100%;
+}
+
+.div-column-left-reverse {
+  position: relative;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 30px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  line-height: 35px;
+  margin-left: 50px; /* changes from right to left on reverse */
+}
+
+.div-column-left-reverse:before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 3px solid #ecb939;
+}
+
+/* Bottom row ------------------------------------- */
+.div-column-left-2 {
+  position: relative;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 30px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  margin-right: 50px;
+  line-height: 35px;
+}
+
+.div-column-left-2:before {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 3px solid #ecb939;
+}
