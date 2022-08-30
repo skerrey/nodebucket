@@ -11,21 +11,43 @@
 
 // Require statements
 const express = require("express");
-const BaseResponse = require("../models/base-response");
 const Employee = require("../models/employee");
-const BaseResponse = require('../models/base-response');
+const BaseResponse = require("../models/base-response");
 
 const router = express.Router();
 
-// findAllTasks (from kerrey-node-shopper.routes.js)
+/**
+ * findAllTasks
+ * @openapi
+ * /api/employees/{empId}/tasks:
+ *   get:
+ *     tags:
+ *       - Employees
+ *     description: API for returning an employee's array of tasks from MongoDB Atlas.
+ *     summary: returns an array of tasks
+ *     parameters:
+ *       - name: empId
+ *         in: path
+ *         required: true
+ *         description: The user's empId.
+ *         schema:
+ *         type: string
+ *     responses:
+ *       '200':
+ *         description: Employee tasks
+ *       '500':
+ *         description: Server Exception
+ *       '501':
+ *         description: MongoDB Exception
+ */
+// findAllTasks
 router.get('/:empId/tasks', async(req, res) => {
   try {
     Employee.findOne({'empId': req.params.empId}, 'empId todo doing done', function(err, emp) {
       if (err) {
-        console.log(err);
-        res.status(501).send({
-          'err': 'MongoDB Exception: ' + err.message
-        })
+        const mongoResponse = new BaseResponse(501, 'MongoDB Server Error', err);
+        console.log(mongoResponse.toObject());
+        res.status(501).send(mongoResponse.toObject());
       } else {
         console.log(emp);
         res.json(emp);
@@ -33,9 +55,8 @@ router.get('/:empId/tasks', async(req, res) => {
     })
   } catch (e) {
     console.log(e);
-    res.status(500).send({
-        'err': 'Server Exception: ' + e.message
-    })
+    const errorResponse = new BaseResponse(500, 'Internal Server error!', e);
+    res.status(500).send(errorResponse.toObject());
   }
 })
 
@@ -46,47 +67,42 @@ router.get('/:empId/tasks', async(req, res) => {
  *   post:
  *     tags:
  *       - Employees
+ *     description: API to create task by empId.
  *     summary: Create task by empId
  *     parameters:
  *       - name: empId
  *         in: path
  *         required: true
- *         description: Employee Id
+ *         description: The employee's ID
  *         schema:
- *           type: string
+ *           type: number
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             required:
- *               - todo
+ *               - text
  *             properties:
- *               todo:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     text:
- *                       type: string
+ *              text:
+ *                description: User task input
+ *                type: string
  *     responses:
- *       "200":
- *         description: Invoice added to MongoDB
- *       "500":
+ *       '200':
+ *         description: Task added to empId
+ *       '500':
  *         description: Server Exception
- *       "501":
+ *       '501':
  *         description: MongoDB Exception
  */
-
 // createTask (from kerrey-node-shopper-routes.js)
 router.post('/:empId/tasks', async(req, res) => {
   try {
     Employee.findOne({ 'empId': req.params.empId }, function(err, emp) {
       if (err) {
-        console.log(err);
-        res.status(501).send({
-          'err': 'MongoDB Exception' + err.message
-        })
+        const mongoResponse = new BaseResponse(501, 'MongoDB Server Error', err);
+        console.log(mongoResponse.toObject());
+        res.status(501).send(mongoResponse.toObject());
       } else {
         console.log(emp);
 
@@ -98,28 +114,24 @@ router.post('/:empId/tasks', async(req, res) => {
 
         emp.save(function (err, updatedEmp) {
           if (err) {
-            console.log(err);
-            res.status(501).send({
-              'err': 'MongoDB server error: ' + err.message
-            })
+            const mongoResponse = new BaseResponse(501, 'MongoDB Server Error', err);
+            console.log(mongoResponse.toObject());
+            res.status(501).send(mongoResponse.toObject());
           } else {
             console.log(updatedEmp);
-            res.json(updatedEmp)
+            res.json(updatedEmp);
           }
-        });
+        })
       }
-    });
+    })
   } catch (e) {
     console.log(e);
-    res.status(500).send({
-      'err': 'Internal server error!'
-    })
+    const errorResponse = new BaseResponse(500, 'Internal Server error!', e);
+    res.status(500).send(errorResponse.toObject());
   }
 })
 
 // updateTasks
-// in class
-
 router.put('/:empId/tasks', async(req, res) => {
   try {
     Employee.findOne({'empId': req.params.empId}, function(err, emp) {
@@ -132,6 +144,7 @@ router.put('/:empId/tasks', async(req, res) => {
 
         emp.set({
           todo: req.body.todo,
+          doing: req.body.doing,
           done: req.body.done
         })
 
@@ -155,54 +168,7 @@ router.put('/:empId/tasks', async(req, res) => {
   }
 })
 
-
-// not in class
-router.put("/:empId/tasks", async(req, res) => {
-  try {
-    Employee.findOne({ "empId": req.params.empId }, function(err, emp) {
-      if (err) {
-        console.log(err);
-        res.status(501).send({
-          'err': 'MongoDB Server Error: ' + err.message
-        })
-      } else {
-        if (emp) {
-          emp.set({
-            todo: req.body.todo,
-            doing: req.body.doing,
-            done: req.body.done
-          })
-          emp.save(function(err, updatedTask) {
-            if(err) {
-              console.log(err);
-              req.status(501).send({
-                'err': 'MongoDB Server Error: ' + err.message
-              })
-            } else {
-              console.log(updatedTask);
-              res.status(200).json(emp)
-            }
-          })
-        } else {
-          if (!emp) {
-            res.status(401).send({
-              "message": "Invalid employeeId"
-            })
-          }
-        }
-      }
-    });
-  } catch (e) {
-    console.log(e);
-    res.status(500).send({
-      'err': 'Internal server error!'
-    })
-  }
-});
-
 // deleteTask
-// in class
-
 router.delete('/:empId/tasks/:taskId', async(req, res) => {
   try {
     Employee.findOne({'empId': req.params.empId}, function(err, emp) {
@@ -261,37 +227,5 @@ router.delete('/:empId/tasks/:taskId', async(req, res) => {
     res.status(500).send(deleteTaskErrorResponse.toObject());
   }
 })
-
-// not in class
-router.delete("/:empId/tasks/:taskId", async(req, res) => {
-  try {
-    Employee.findOne({'empId': req.params.empId}, function(err, emp) {
-      if (err) {
-        console.log(err);
-        res.status(501).send({
-          'err': 'MongoDB Server Error: ' + err.message
-        })
-      } else {
-        Employee.findByIdAndDelete({ "taskId": req.params.taskId }, function(err, emp) {
-          if (err) {
-            console.log(err);
-            res.status(501).send({
-              "message": `MongoDB Exception ${err}`
-            })
-          } else {
-            console.log(emp);
-            res.status(200).json(emp)
-          }
-        })
-      }
-    })
-  } catch (e) {
-    console.log(e);
-    res.status(500).send({
-      'err': 'Internal server error!'
-    })
-  }
-});
-
 
 module.exports = router;
