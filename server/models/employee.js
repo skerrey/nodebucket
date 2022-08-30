@@ -4,7 +4,7 @@
 ; Author: Professor Krasso
 ; Date: 21 August 2022
 ; Modified By: Seth Kerrey
-; Description: nodebucket employee & task model
+; Description: nodebucket employee model
 ; Code Attribution: Additional code from buwebdev
 ;===========================================
 */
@@ -12,18 +12,16 @@
 // Require statements
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const itemSchema = require('./item');
 
-let taskSchema = new Schema({ // Task Schema
-  text: {type: String}
-});
 
 let employeeSchema = new Schema({ // Employee Schema
-  empId: {type: String, unique: true, dropDups: true, required: true },
+  empId: {type: String, unique: true, required: true },
   firstName: {type: String},
   lastName: {type: String},
-  todo: [taskSchema],
-  doing: [taskSchema],
-  done: [taskSchema]
+  todo: [itemSchema],
+  doing: [itemSchema],
+  done: [itemSchema]
 }, { collection: 'employees'}); // specify connection
 
 // Export module
