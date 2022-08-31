@@ -35,7 +35,7 @@ const router = express.Router();
  *            type: string
  *    responses:
  *      "200":
- *        description: Composer Documents
+ *        description: Employee Documents
  *      "500":
  *        description: Server Exception
  *      "501":
@@ -52,11 +52,9 @@ router.get('/employees/:empId', async(req, res) => {
         res.status(501).send(mongoResponse.toObject());
       } else {
         console.log(emp);
-        // If employee exists in MongoDB
         if (emp) {
           const findEmployeeByIdResponse = new BaseResponse(200, 'Query successful', emp);
           res.json(findEmployeeByIdResponse.toObject());
-          // If employee cannot be found (ex: 1016)
         } else {
           const notFoundEmployeeResponse = new BaseResponse(200, 'Invalid employee ID. Please try again.', null);
           console.log(notFoundEmployeeResponse.toObject());

@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private cookieService: CookieService, private taskService: TaskService) {
-    // Initialize the variables.
     this.empId = this.cookieService.get('session_user'), 10;
     this.employee = {} as Employee;
     this.todo = [];
@@ -49,7 +48,7 @@ export class HomeComponent implements OnInit {
     this.done = [];
     this.sessionName = this.cookieService.get('session_name');
 
-    // Subscribe to the taskService observable (task.service.ts).
+    // Subscribe to the taskService observable
     this.taskService.findAllTasks(this.empId).subscribe({
       next: (res) => {
         this.employee = res;
