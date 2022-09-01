@@ -24,7 +24,7 @@ const router = express.Router();
  *     tags:
  *       - Employees
  *     description: API for returning an employee's array of tasks from MongoDB Atlas.
- *     summary: returns an array of tasks
+ *     summary: Returns an array of tasks
  *     parameters:
  *       - name: empId
  *         in: path
@@ -193,7 +193,7 @@ router.delete('/:empId/tasks/:taskId', async(req, res) => {
               console.log(updatedTodoItemErrResponse.toObject());
               res.status(501).send(updatedTodoItemErrResponse.toObject());
             } else {
-              const updatedTodoItemSuccess = new BaseREsponse('200', 'Query Successful', updatedTodoItemEmp);
+              const updatedTodoItemSuccess = new BaseResponse('200', 'Query Successful', updatedTodoItemEmp);
               console.log(updatedTodoItemSuccess.toObject());
               res.status(200).send(updatedTodoItemSuccess.toObject());
             }
