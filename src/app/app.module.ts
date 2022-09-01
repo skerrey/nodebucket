@@ -9,6 +9,7 @@
 ;===========================================
 */
 
+// Modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,6 +23,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +43,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 
 // Cookie service
 import { CookieService } from 'ngx-cookie-service';
@@ -51,6 +55,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Drag-n-drop
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +68,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AboutComponent,
     ContactComponent,
     NotFoundComponent,
-    SignInComponent
+    SignInComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +87,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatInputModule,
     MatSidenavModule,
     DragDropModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    MatDividerModule
   ],
   providers: [CookieService], // check
   bootstrap: [AppComponent]
