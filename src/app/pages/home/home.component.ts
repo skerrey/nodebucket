@@ -12,12 +12,15 @@
 */
 
 import { Component, OnInit } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, DropListRef, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Employee } from 'src/app/shared/models/employee.interface';
 import { Item } from 'src/app/shared/models/item.interface';
 import { TaskService } from 'src/app/task.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogData } from 'src/app/shared/models/dialog-data.interface';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -40,30 +43,32 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private cookieService: CookieService, private taskService: TaskService) {
-    this.empId = this.cookieService.get('session_user'), 10;
-    this.employee = {} as Employee;
-    this.todo = [];
-    this.doing = [];
-    this.done = [];
-    this.sessionName = this.cookieService.get('session_name');
+  constructor(private fb: FormBuilder, private cookieService: CookieService,
+    private taskService: TaskService, private dialog: MatDialog)
+    {
+      this.empId = this.cookieService.get('session_user'), 10;
+      this.employee = {} as Employee;
+      this.todo = [];
+      this.doing = [];
+      this.done = [];
+      this.sessionName = this.cookieService.get('session_name');
 
-    // Subscribe to the taskService observable
-    this.taskService.findAllTasks(this.empId).subscribe({
-      next: (res) => {
-        this.employee = res;
-        console.log(this.employee);
+      // Subscribe to the taskService observable
+      this.taskService.findAllTasks(this.empId).subscribe({
+        next: (res) => {
+          this.employee = res;
+          console.log(this.employee);
 
-      },
-      error: (e) => {
-        console.log(e.message);
-      },
-      complete: () => {
-        this.todo = this.employee.todo;
-        this.doing = this.employee.doing;
-        this.done = this.employee.done;
-      }
-    })
+        },
+        error: (e) => {
+          console.log(e.message);
+        },
+        complete: () => {
+          this.todo = this.employee.todo;
+          this.doing = this.employee.doing;
+          this.done = this.employee.done;
+        }
+      })
    }
 
   ngOnInit(): void {
@@ -90,4 +95,72 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+
+  deleteTask(taskId: string) {
+    let dialogData = {} as DialogData;
+    dialogData.header = 'Delete Record Dialog';
+    dialogData.body = 'Are you sure you want to delete this task?';
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: dialogData,
+      disableClose: true
+    })
+
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result === 'confirm') {
+          this.taskService.deleteTask(this.empId, taskId).subscribe({
+
+            next: (res) => {
+              this.employee = res.data
+            },
+            error: (e) => {
+              console.log(e);
+            },
+            complete: () => {
+              this.todo = this.employee.todo;
+              this.doing = this.employee.doing;
+              this.done = this.employee.done;
+            }
+          })
+        }
+      }
+    })
+
+
+    }
+
+    drop(event: CdkDragDrop<any[]>) {
+      if (event.previousContainer === event.container) {
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        console.log('Reordered task in the same column');
+        this.updateTaskList(this.empId, this.todo, this.doing, this.done);
+      } else {
+        transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex)
+
+        console.log('Moved tasks to a new column');
+        this.updateTaskList(this.empId, this.todo, this.doing, this.done)
+      }
+    }
+
+    updateTaskList(empId: string, todo: Item[], doing: Item[], done: Item[]): void {
+      this.taskService.updateTask(empId, todo, doing, done).subscribe({
+        next: (res) => {
+          this.employee = res.data;
+        },
+        error: (e) => {
+          console.log(e);
+        },
+        complete: () => {
+          console.log(this.employee);
+          this.todo = this.employee.todo;
+          this.doing = this.employee.doing;
+          this.done = this.employee.done;
+        }
+      })
+  }
 }
+
