@@ -91,7 +91,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatDialogModule,
     MatDividerModule
   ],
-  providers: [CookieService], // check
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

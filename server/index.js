@@ -14,11 +14,10 @@
  */
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
-const mongoose = require('mongoose');
-const employeeAPI = require('./routes/employee-routes');
-const taskAPI = require('./routes/task-routes');
+const employeeAPI = require('./routes/employee-api');
 
 const app = express(); // Express variable.
 
@@ -33,9 +32,8 @@ const options = {
   },
   apis: ['./server/routes/*.js'], // files containing annotations for the OpenAPI Specification
 };
-
 const openapiSpecification = swaggerJsdoc(options);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+
 
 /**
  * App configurations.
@@ -45,15 +43,16 @@ app.use(express.urlencoded({'extended': true}));
 app.use(express.static(path.join(__dirname, '../dist/nodebucket')));
 app.use('/', express.static(path.join(__dirname, '../dist/nodebucket')));
 
-// API
-app.use('/api', employeeAPI); // shortened URI
-app.use('/api/employees', taskAPI);
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
+// API
+app.use('/api/employees', employeeAPI); // shortened URI
 
 // default server port value.
 const PORT = 3000 || process.env.PORT;
 
-// This line will be replaced with your database connection string (including username/password).
+// Database Connection
 const CONN = 'mongodb+srv://nodebucket_user:s3cret@buwebdev-cluster-1.ixkw5.mongodb.net/nodebucket?retryWrites=true&w=majority';
 
 
