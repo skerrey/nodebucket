@@ -73,7 +73,14 @@
     <!-- Right container -->
     <div fxFlex="10">
       <div class="right-container">
-        <h2 style="text-align:center;">Quick Links</h2>
+        <h2 style="text-align:center;background-color:gold;border-radius:5px;">Quick Links</h2>
+          <button class="navbar-link" routerLink="/" mat-button>Home</button>
+          <hr>
+          <button class="navbar-link" routerLink = "/about" mat-button>About</button>
+          <hr>
+          <button class="navbar-link" routerLink = "/contact" mat-button>Contact</button>
+          <hr>
+          <button class="navbar-link" mat-button (click)="signOut()">Sign Out</button>
       </div>
     </div>
 
