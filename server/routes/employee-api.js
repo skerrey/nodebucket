@@ -148,7 +148,7 @@ router.get('/:empId/tasks', async(req, res) => {
  *       '501':
  *         description: MongoDB Exception
  */
-// createTask (from kerrey-node-shopper-routes.js)
+// createTask
 router.post('/:empId/tasks', async(req, res) => {
   try {
     Employee.findOne({ 'empId': req.params.empId }, function(err, emp) {
@@ -184,6 +184,60 @@ router.post('/:empId/tasks', async(req, res) => {
   }
 })
 
+/**
+ * updateTasks
+ * @openapi
+ * /api/employees/{empId}/tasks:
+ *  put:
+ *    tags:
+ *      - Employees
+ *    summary: Update task by empId
+ *    parameters:
+ *      - name: empId
+ *        in: path
+ *        required: true
+ *        description: Task ID
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            required:
+ *              - todo
+ *              - doing
+ *              - done
+ *            properties:
+ *              todo:
+ *                type: array
+ *                items:
+ *                  type: object
+ *                  properties:
+ *                    text:
+ *                      type: string
+ *              doing:
+ *                type: array
+ *                items:
+ *                  type: object
+ *                  properties:
+ *                    text:
+ *                      type: string
+ *              done:
+ *                type: array
+ *                items:
+ *                  type: object
+ *                  properties:
+ *                    text:
+ *                      type: string
+ *    responses:
+ *      "200":
+ *        description: Array of employee documents
+ *      "500":
+ *        description: Server Exception
+ *      "501":
+ *        description: MongoDB Exception
+ */
 // updateTasks
 router.put('/:empId/tasks', async(req, res) => {
   try {
@@ -221,6 +275,35 @@ router.put('/:empId/tasks', async(req, res) => {
   }
 })
 
+/**
+ * deleteTask
+ * @openapi
+ * /api/employees/{empId}/tasks/{taskId}:
+ *  delete:
+ *    tags:
+ *      - Employees
+ *    summary: Delete task by taskId
+ *    parameters:
+ *      - name: empId
+ *        in: path
+ *        required: true
+ *        description: Task ID
+ *        schema:
+ *          type: string
+ *      - name: taskId
+ *        in: path
+ *        required: true
+ *        description: Employee ID
+ *        schema:
+ *          type: string
+ *    responses:
+ *      "200":
+ *        description: Query Successful
+ *      "500":
+ *        description: Server Exception
+ *      "501":
+ *        description: MongoDB Exception
+ */
 // deleteTask
 router.delete('/:empId/tasks/:taskId', async(req, res) => {
   try {
