@@ -40,9 +40,6 @@ export class HomeComponent implements OnInit {
     task: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(35)])]
   })
 
-
-
-
   constructor(private fb: FormBuilder, private cookieService: CookieService,
     private taskService: TaskService, private dialog: MatDialog)
     {
@@ -96,6 +93,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  // deleteTask
   deleteTask(taskId: string) {
     let dialogData = {} as DialogData;
     dialogData.header = 'Delete Record Dialog';
@@ -126,9 +124,7 @@ export class HomeComponent implements OnInit {
         }
       }
     })
-
-
-    }
+  }
 
     drop(event: CdkDragDrop<any[]>) {
       if (event.previousContainer === event.container) {
@@ -146,6 +142,7 @@ export class HomeComponent implements OnInit {
       }
     }
 
+    // updateTask
     updateTaskList(empId: string, todo: Item[], doing: Item[], done: Item[]): void {
       this.taskService.updateTask(empId, todo, doing, done).subscribe({
         next: (res) => {
@@ -161,6 +158,7 @@ export class HomeComponent implements OnInit {
           this.done = this.employee.done;
         }
       })
-  }
+    }
+
 }
 
