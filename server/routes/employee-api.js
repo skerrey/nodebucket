@@ -26,12 +26,12 @@ const router = express.Router();
  *    description: API for returning a single employee object from MongoDB
  *    summary: Returns an employee document
  *    parameters:
- *      -   name: empId
- *          in: path
- *          required: true
- *          description: The empId requested by the user.
- *          schema:
- *            type: string
+ *      - name: empId
+ *        in: path
+ *        required: true
+ *        description: The empId requested by user
+ *        schema:
+ *          type: string
  *    responses:
  *      "200":
  *        description: Employee Documents
@@ -40,9 +40,8 @@ const router = express.Router();
  *      "501":
  *        description: MongoDB Exception
  */
-
 // findEmployeeById
-router.get('/employees/:empId', async(req, res) => {
+router.get('/:empId', async(req, res) => {
   try {
     Employee.findOne({'empId': req.params.empId}, function(err, emp) {
       if (err) {
@@ -287,13 +286,13 @@ router.put('/:empId/tasks', async(req, res) => {
  *      - name: empId
  *        in: path
  *        required: true
- *        description: Task ID
+ *        description: Employee ID
  *        schema:
  *          type: string
  *      - name: taskId
  *        in: path
  *        required: true
- *        description: Employee ID
+ *        description: Task ID
  *        schema:
  *          type: string
  *    responses:
