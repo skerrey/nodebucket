@@ -28,7 +28,7 @@ export class AppComponent{
   ){
     this.matIconRegistry.addSvgIcon(
       "owl",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("/assets/owl_icon.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/owl_icon.svg")
     );
   }
 }
