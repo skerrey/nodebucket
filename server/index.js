@@ -49,8 +49,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 // API
 app.use('/api/employees', employeeAPI); // shortened URI
 
-// default server port value.
-const PORT = 3000 || process.env.PORT;
 
 // Database Connection
 const CONN = 'mongodb+srv://nodebucket_user:s3cret@buwebdev-cluster-1.ixkw5.mongodb.net/nodebucket?retryWrites=true&w=majority';
@@ -66,6 +64,6 @@ mongoose.connect(CONN).then(() => {
 });
 
 // Wire-up the Express server.
-app.listen(PORT, () => {
-  console.log('Application started and listening on PORT: ' + PORT);
-})
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
