@@ -66,6 +66,4 @@ mongoose.connect(CONN).then(() => {
 });
 
 // Wire-up the Express server.
-app.listen(PORT, () => {
-  console.log('Application started and listening on PORT: ' + PORT);
-})
+app.listen(process.env.PORT || 3000);
